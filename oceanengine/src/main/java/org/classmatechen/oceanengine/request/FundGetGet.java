@@ -13,6 +13,10 @@ import com.bytedance.ads.model.AdvertiserFundGetV2ResponseData;
 
 import lombok.Data;
 
+/**
+ * 查询账号余额
+ * https://open.oceanengine.com/labels/7/docs/1696710526192652
+ */
 public class FundGetGet extends DyRequest<FundGetGet.Param, AdvertiserFundGetV2ResponseData> {
 
     @Data

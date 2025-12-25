@@ -13,7 +13,7 @@ public class QPSHandler extends DyExceptionHandler {
     private final long millis;
 
     public QPSHandler() {
-        this(1000l);
+        this(10000l);
     }
 
     public QPSHandler(long millis) {
