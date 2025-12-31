@@ -12,6 +12,9 @@ import org.classmatechen.oceanengine.request.AccessTokenPost;
 import com.bytedance.ads.model.Oauth2AccessTokenRequest;
 import com.bytedance.ads.model.Oauth2AccessTokenResponseData;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class InitAccessTokenProvider implements AccessTokenProvider {
 
     private OceanengineProvider provider;
@@ -42,6 +45,8 @@ public class InitAccessTokenProvider implements AccessTokenProvider {
         if (Objects.isNull(response)) {
             return null;
         }
+
+        log.info("refresh token response: {}", response);
         Publisher.publish(new AccessTokenRefreshedEvent(context, response.getAccessToken()));
         Publisher.publish(new RefreshTokenRefreshedEvent(context, response.getRefreshToken()));
         return response.getAccessToken();

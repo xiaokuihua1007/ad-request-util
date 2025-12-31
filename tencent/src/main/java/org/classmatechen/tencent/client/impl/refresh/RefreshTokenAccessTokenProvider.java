@@ -5,11 +5,15 @@ import java.util.Objects;
 import org.classmatechen.basic.Request;
 import org.classmatechen.basic.pubsub.AccessTokenRefreshedEvent;
 import org.classmatechen.basic.pubsub.Publisher;
+import org.classmatechen.basic.pubsub.RefreshTokenRefreshedEvent;
 import org.classmatechen.tencent.TxContext;
 import org.classmatechen.tencent.client.impl.AccessTokenProvider;
 import org.classmatechen.tencent.request.OauthToken;
 import com.tencent.ads.model.v3.OauthTokenResponseData;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class RefreshTokenAccessTokenProvider implements AccessTokenProvider {
 
     private final RefreshTokenProvider provider;
@@ -37,7 +41,10 @@ public class RefreshTokenAccessTokenProvider implements AccessTokenProvider {
         if (Objects.isNull(response)) {
             return null;
         }
+
+        log.info("refresh token response: {}", response);
         Publisher.publish(new AccessTokenRefreshedEvent(context, response.getAccessToken()));
+        Publisher.publish(new RefreshTokenRefreshedEvent(context, response.getRefreshToken()));
         return response.getAccessToken();
     }
 

@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.classmatechen.basic.Request;
 import org.classmatechen.basic.pubsub.AccessTokenRefreshedEvent;
 import org.classmatechen.basic.pubsub.Publisher;
+import org.classmatechen.basic.pubsub.RefreshTokenRefreshedEvent;
 import org.classmatechen.oceanengine.DyContext;
 import org.classmatechen.oceanengine.client.impl.AccessTokenProvider;
 import org.classmatechen.oceanengine.request.RefreshTokenPost;
@@ -45,7 +46,10 @@ public class RefreshTokenAccessTokenProvider implements AccessTokenProvider {
         if (Objects.isNull(response)) {
             return null;
         }
+
+        log.info("refresh token response: {}", response);
         Publisher.publish(new AccessTokenRefreshedEvent(context, response.getAccessToken()));
+        Publisher.publish(new RefreshTokenRefreshedEvent(context, response.getRefreshToken()));
         return response.getAccessToken();
     }
 

@@ -13,6 +13,9 @@ import org.classmatechen.basic.pubsub.RefreshTokenRefreshedEvent;
 import com.baidu.dev2.api.sdk.manual.oauth.model.AccessTokenInfo;
 import com.baidu.dev2.api.sdk.manual.oauth.model.GetAccessTokenRequest;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class InitAccessTokenProvider implements AccessTokenProvider {
 
     private BaiduProvider provider;
@@ -44,6 +47,8 @@ public class InitAccessTokenProvider implements AccessTokenProvider {
         if (Objects.isNull(response)) {
             return null;
         }
+
+        log.info("refresh token response: {}", response);
         Publisher.publish(new AccessTokenRefreshedEvent(context, response.getAccessToken()));
         Publisher.publish(new RefreshTokenRefreshedEvent(context, response.getRefreshToken()));
         return response.getAccessToken();

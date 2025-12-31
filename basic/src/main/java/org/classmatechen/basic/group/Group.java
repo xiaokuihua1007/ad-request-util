@@ -1,6 +1,8 @@
 package org.classmatechen.basic.group;
 
-public interface Group {
+import java.util.List;
 
-    void execute();
+public interface Group<P> {
+
+    List<GroupFail<P>> execute();
 }
