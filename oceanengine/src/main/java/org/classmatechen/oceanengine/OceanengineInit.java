@@ -34,6 +34,7 @@ public class OceanengineInit {
     private static final MethodDefinition<?> getList = new MethodDefinition<>("getData.getList");
     private static final MethodDefinition<?> getLogs = new MethodDefinition<>("getData.getLogs");
     private static final MethodDefinition<?> getRows = new MethodDefinition<>("getData.getRows");
+    private static final MethodDefinition<?> getProducts = new MethodDefinition<>("getData.getProducts");
     private static final MethodDefinition<?> getCompensateStatusInfoList = new MethodDefinition<>("getData.getCompensateStatusInfoList");
 
     private final List<ApiClientProvider> providers;
@@ -61,6 +62,7 @@ public class OceanengineInit {
         Parser.register(new ReflectDyCombinedPageResponseParser(getList, getTotalPage, getCursor, getHasMore));
         Parser.register(new ReflectDyClassicPageResponseParser(getRows, getTotalPage));
         Parser.register(new ReflectDyClassicPageResponseParser(getLogs, getTotalPage));
+        Parser.register(new ReflectDyClassicPageResponseParser(getProducts, getTotalPage));
         Parser.register(new ReflectDyClassicPageResponseParser(getList, getTotalPage));
         Parser.register(new ReflectDyListResponseParser(getCompensateStatusInfoList));
         Parser.register(new ReflectDyListResponseParser(getList));
